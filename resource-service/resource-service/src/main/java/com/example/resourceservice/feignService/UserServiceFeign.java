@@ -1,14 +1,11 @@
-package com.example.resourceservice.feignService;
+package com.example.userservice.feignService;
 
-import com.example.resourceservice.dtos.UserDetailDTO;
-import com.example.resourceservice.feignService.impl.UserServiceFallback;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.example.userservice.dtos.UserDetailDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @FeignClient(name = "user-service")

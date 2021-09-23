@@ -1,10 +1,8 @@
-package com.example.resourceservice.controller;
+package com.example.userservice.controller;
 
-import com.example.resourceservice.dtos.UserDetailDTO;
-import com.example.resourceservice.feignService.UserServiceFeign;
+import com.example.userservice.dtos.UserDetailDTO;
+import com.example.userservice.feignService.UserServiceFeign;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import io.github.resilience4j.bulkhead.annotation.Bulkhead;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

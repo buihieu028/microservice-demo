@@ -1,8 +1,7 @@
-package com.example.resourceservice.controller;
+package com.example.userservice.controller;
 
-import com.example.resourceservice.dto.UserDetailDTO;
-import com.example.resourceservice.model.UserDetails;
-import com.example.resourceservice.service.UserService;
+import com.example.userservice.dto.UserDetailDTO;
+import com.example.userservice.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,11 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
+        <module name="resource-service" />
         <module name="auth-service" />
         <module name="common-service" />
         <module name="user-service" />
         <module name="eureka-server" />
-        <module name="resource-service (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,7 +20,7 @@
       <module name="auth-service" target="11" />
       <module name="common-service" target="11" />
       <module name="eureka-server" target="11" />
-      <module name="resource-service (1)" target="11" />
+      <module name="resource-service" target="11" />
       <module name="user-service" target="11" />
       <module name="zipkin-server" target="11" />
       <module name="zipkin-server (1) (com.example)" target="11" />
@@ -34,7 +34,7 @@
       <module name="auth-service" options="-parameters" />
       <module name="common-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
-      <module name="resource-service (1)" options="-parameters" />
+      <module name="resource-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
       <module name="zipkin-server" options="-parameters" />
       <module name="zipkin-server (1) (com.example)" options="-parameters" />

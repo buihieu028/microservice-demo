@@ -1,4 +1,4 @@
-package com.example.userservice.dto;
+package com.example.resourceservice.dto;
 
 public class UserDetailDTO {
   private String id;

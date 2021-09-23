@@ -1,4 +1,4 @@
-package com.example.resourceservice.model;
+package com.example.userservice.model;
 
 import javax.persistence.*;
 

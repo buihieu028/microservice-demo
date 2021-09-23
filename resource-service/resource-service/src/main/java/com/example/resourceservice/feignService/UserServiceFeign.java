@@ -1,6 +1,6 @@
-package com.example.userservice.feignService;
+package com.example.resourceservice.feignService;
 
-import com.example.userservice.dtos.UserDetailDTO;
+import com.example.resourceservice.dtos.UserDetailDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

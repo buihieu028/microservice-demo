@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: auth-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mariadb://localhost:3306/product-server
+    username: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+        minimum-idle: 10
+        idle-timeout: 10000
+        maximum-pool-size: 30
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+

@@ -1,7 +1,7 @@
-package com.example.userservice.controller;
+package com.example.resourceservice.controller;
 
-import com.example.userservice.dtos.UserDetailDTO;
-import com.example.userservice.feignService.UserServiceFeign;
+import com.example.resourceservice.dtos.UserDetailDTO;
+import com.example.resourceservice.feignService.UserServiceFeign;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

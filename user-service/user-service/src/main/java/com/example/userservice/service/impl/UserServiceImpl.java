@@ -1,9 +1,9 @@
-package com.example.resourceservice.service.impl;
+package com.example.userservice.service.impl;
 
-import com.example.resourceservice.dto.UserDetailDTO;
-import com.example.resourceservice.model.UserDetails;
-import com.example.resourceservice.repo.UserDetailRepository;
-import com.example.resourceservice.service.UserService;
+import com.example.userservice.dto.UserDetailDTO;
+import com.example.userservice.model.UserDetails;
+import com.example.userservice.repo.UserDetailRepository;
+import com.example.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

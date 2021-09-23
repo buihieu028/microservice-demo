@@ -1,1 +1,1 @@
-package com.example.resourceservice;
+package com.example.userservice;

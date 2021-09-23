@@ -1,7 +1,7 @@
-package com.example.userservice.feignService.impl;
+package com.example.resourceservice.feignService.impl;
 
-import com.example.userservice.dtos.UserDetailDTO;
-import com.example.userservice.feignService.UserServiceFeign;
+import com.example.resourceservice.dtos.UserDetailDTO;
+import com.example.resourceservice.feignService.UserServiceFeign;
 
 import java.util.ArrayList;
 import java.util.List;

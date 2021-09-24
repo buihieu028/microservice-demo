@@ -2,19 +2,17 @@ package com.example.authservice.controller;
 
 import com.example.authservice.model.LoginRequest;
 import com.example.authservice.model.UserRequest;
-import com.example.authservice.service.UserService;
-import com.example.commonservice.exception.BusinessException;
+import com.example.authservice.service.AuthenticateService;
 import com.example.commonservice.model.ResponseData;
+import com.example.commonservice.exception.*;
 import com.example.commonservice.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -23,13 +21,13 @@ public class AuthController {
   private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
   @Autowired
-  private UserService userService;
+  private AuthenticateService authenticateService;
 
   @PostMapping("/create-account")
   public ResponseData createNewAccount(@Valid @RequestBody UserRequest userRequest, BindingResult bindingResult) {
 
     try {
-      User newUser = userService.registerNewEmail(userRequest);
+      User newUser = authenticateService.registerNewEmail(userRequest);
       if (newUser == null) {
         return new ResponseData("ERROR", "DATA_INVALID");
       }
@@ -42,14 +40,24 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public ResponseData login(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
+  public ResponseData login(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult,
+    HttpServletRequest request) {
     try {
-      User loggedUser = userService.login(loginRequest);
-      return new ResponseData("SUCCESS_LOGIN", loggedUser);
+      String token = authenticateService.login(loginRequest, request);
+      if (token == null) {
+        return new ResponseData("ERROR", "ERROR when you get token");
+      }
+      return new ResponseData("SUCESS", token);
     } catch (BusinessException e) {
       return new ResponseData("ERROR", e.getMessage());
     } catch (Exception ex) {
       return new ResponseData("ERROR", "SYSTEM_ERROR");
     }
   }
+
+  @GetMapping("/hello")
+  public String helloTest() {
+    return "hello";
+  }
+
 }

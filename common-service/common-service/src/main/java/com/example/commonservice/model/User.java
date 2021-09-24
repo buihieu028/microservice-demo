@@ -17,7 +17,7 @@ public class User extends BaseEntity {
   @Column(name = "email")
   private String email;
 
-  @JsonIgnore
+  @JsonIgnore()
   @Column(name = "password")
   private String password;
 

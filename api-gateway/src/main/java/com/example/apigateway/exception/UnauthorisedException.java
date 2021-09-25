@@ -1,7 +1,11 @@
-package com.example.apigateway.exceptionHandler;
+package com.example.apigateway.exception;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+@Getter
+@Setter
 public class UnauthorisedException extends RuntimeException {
   private ErrorResponse errorResponse;
 
@@ -9,17 +13,8 @@ public class UnauthorisedException extends RuntimeException {
     super(message);
 
     errorResponse = new ErrorResponse();
-
     errorResponse.setDeveloperMsg(developerMessage);
     errorResponse.setErrorMsg(message);
-    errorResponse.setStatus(HttpStatus.UNAUTHORIZED);
-  }
-
-  public ErrorResponse getErrorResponse() {
-    return errorResponse;
-  }
-
-  public void setErrorResponse(ErrorResponse errorResponse) {
-    this.errorResponse = errorResponse;
+    errorResponse.setHttpStatus(HttpStatus.UNAUTHORIZED);
   }
 }

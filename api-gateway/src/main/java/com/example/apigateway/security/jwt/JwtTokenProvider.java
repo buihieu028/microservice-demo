@@ -1,8 +1,9 @@
-package com.example.apigateway.jwt;
+package com.example.apigateway.security.jwt;
 
-import com.example.apigateway.exceptionHandler.UnauthorisedException;
-import com.example.apigateway.feignInterface.AuthClientInterface;
-import com.example.apigateway.security.CustomUserDetailsService;
+import com.example.apigateway.exception.UnauthorisedException;
+import com.example.apigateway.feign.AuthServiceClient;
+import com.example.apigateway.security.CustomUserDetailService;
+import com.example.commonservice.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -27,16 +28,13 @@ public class JwtTokenProvider {
 
   private final JwtProperties jwtProperties;
 
-  private final CustomUserDetailsService userDetailsService;
+  private final CustomUserDetailService customUserDetailService;
 
   private String secretKey;
 
-  @Autowired
-  AuthClientInterface authClientInterface;
-
-  public JwtTokenProvider(JwtProperties jwtProperties, CustomUserDetailsService userDetailsService) {
+  public JwtTokenProvider(JwtProperties jwtProperties, CustomUserDetailService customUserDetailService) {
     this.jwtProperties = jwtProperties;
-    this.userDetailsService = userDetailsService;
+    this.customUserDetailService = customUserDetailService;
   }
 
   @PostConstruct
@@ -45,8 +43,8 @@ public class JwtTokenProvider {
   }
 
   public Authentication getAuthentication(String token) {
-    UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    UserDetails userDetails = this.customUserDetailService.loadUserByUsername(getUsername(token));
+    return new UsernamePasswordAuthenticationToken(userDetails, "", null);
   }
 
   private String getUsername(String token) {
@@ -55,21 +53,19 @@ public class JwtTokenProvider {
 
   public String resolveToken(HttpServletRequest req) {
     String bearerToken = req.getHeader("Authorization");
-
     return (!Objects.isNull(bearerToken) && bearerToken.startsWith("Bearer")) ?
       bearerToken.substring(7, bearerToken.length()) :
       null;
   }
 
   public boolean validateToken(String token) {
-
     try {
-      Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-
+      Jws<Claims> claims = Jwts.parser().setSigningKey("mysecret").parseClaimsJws(token);
       return (!claims.getBody().getExpiration().before(new Date()));
     } catch (JwtException | IllegalArgumentException e) {
       LOGGER.error("Expired or invalid JWT token");
       throw new UnauthorisedException("Unmatched JWT Token", "Request not authorized");
     }
   }
+
 }

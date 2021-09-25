@@ -1,4 +1,4 @@
-package com.example.apigateway.jwt;
+package com.example.apigateway.security.jwt;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,9 +13,9 @@ public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
   }
 
   @Override
-  public void configure(HttpSecurity http) throws Exception {
+  public void configure(HttpSecurity builder) throws Exception {
     JwtTokenFilter customFilter = new JwtTokenFilter(jwtTokenProvider);
-    http.exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint()).and()
+    builder.exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint()).and()
       .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
   }
 }

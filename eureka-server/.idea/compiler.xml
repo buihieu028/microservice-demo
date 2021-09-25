@@ -7,20 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="resource-service" />
-        <module name="api-gateway" />
         <module name="auth-service" />
         <module name="common-service" />
+        <module name="resource-service" />
+        <module name="api-gateway" />
         <module name="user-service" />
         <module name="eureka-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="api-gateway" target="11" />
+      <module name="api-gateway" target="1.8" />
       <module name="api-gateway-zuul" target="1.8" />
       <module name="api-zuul-2" target="11" />
       <module name="auth-service" target="11" />
       <module name="common-service" target="11" />
+      <module name="demo" target="1.8" />
       <module name="eureka-server" target="11" />
       <module name="resource-service" target="11" />
       <module name="user-service" target="11" />
@@ -36,6 +37,7 @@
       <module name="api-zuul-2" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="common-service" options="-parameters" />
+      <module name="demo" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="resource-service" options="-parameters" />
       <module name="user-service" options="-parameters" />

@@ -39,6 +39,7 @@ public class UserController {
 
   @GetMapping("/get-infor")
   public User getUserInfor(@RequestParam(name = "email") String email) {
-    return authenticateService.loadByEmail(email);
+    return userService.getUserByEmail(email);
   }
+
 }

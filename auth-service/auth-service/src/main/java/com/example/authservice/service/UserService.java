@@ -7,4 +7,6 @@ public interface UserService {
   UserDetailResponse getDetailUser(Long userId, String email) throws Exception;
 
   User getUserByIdAndEmail(Long userId, String email);
+
+  User getUserByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package com.example.apigateway.jwt;
+package com.example.apigateway.security.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
+
   private JwtTokenProvider jwtTokenProvider;
 
   public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
@@ -19,16 +20,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
   }
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-    throws ServletException, IOException {
-    String token = jwtTokenProvider.resolveToken(request);
+  protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+    FilterChain filterChain) throws ServletException, IOException {
+    String token = jwtTokenProvider.resolveToken(httpServletRequest);
 
     if (!Objects.isNull(token) && jwtTokenProvider.validateToken(token)) {
       Authentication auth = jwtTokenProvider.getAuthentication(token);
-      if (!Objects.isNull(auth))
+      if (!Objects.isNull(auth)) {
         SecurityContextHolder.getContext().setAuthentication(auth);
+      }
+      filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
-
-    filterChain.doFilter(request, response);
   }
 }

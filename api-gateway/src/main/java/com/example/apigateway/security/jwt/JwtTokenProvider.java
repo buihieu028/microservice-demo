@@ -1,7 +1,6 @@
 package com.example.apigateway.security.jwt;
 
 import com.example.apigateway.exception.UnauthorisedException;
-import com.example.apigateway.feign.AuthServiceClient;
 import com.example.apigateway.security.CustomUserDetailService;
 import com.example.commonservice.model.User;
 import io.jsonwebtoken.Claims;
@@ -10,7 +9,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,9 +30,10 @@ public class JwtTokenProvider {
 
   private String secretKey;
 
-  public JwtTokenProvider(JwtProperties jwtProperties, CustomUserDetailService customUserDetailService) {
+  public JwtTokenProvider(JwtProperties jwtProperties, CustomUserDetailService customUserDetailService,
+    CustomUserDetailService customUserDetailService1) {
     this.jwtProperties = jwtProperties;
-    this.customUserDetailService = customUserDetailService;
+    this.customUserDetailService = customUserDetailService1;
   }
 
   @PostConstruct
@@ -43,8 +42,8 @@ public class JwtTokenProvider {
   }
 
   public Authentication getAuthentication(String token) {
-    UserDetails userDetails = this.customUserDetailService.loadUserByUsername(getUsername(token));
-    return new UsernamePasswordAuthenticationToken(userDetails, "", null);
+    UserDetails user = this.customUserDetailService.loadUserByUsername(getUsername(token));
+    return new UsernamePasswordAuthenticationToken(user, "", null);
   }
 
   private String getUsername(String token) {
@@ -60,7 +59,7 @@ public class JwtTokenProvider {
 
   public boolean validateToken(String token) {
     try {
-      Jws<Claims> claims = Jwts.parser().setSigningKey("mysecret").parseClaimsJws(token);
+      Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
       return (!claims.getBody().getExpiration().before(new Date()));
     } catch (JwtException | IllegalArgumentException e) {
       LOGGER.error("Expired or invalid JWT token");

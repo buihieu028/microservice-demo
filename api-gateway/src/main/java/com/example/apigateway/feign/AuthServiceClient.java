@@ -6,11 +6,11 @@ import com.example.commonservice.model.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
+@Service
 @FeignClient(value = "auth-service")
-@RequestMapping(value = "/user")
 public interface AuthServiceClient {
-  @GetMapping("/get-infor")
-  User getUserByEmail(@PathVariable("email") String email);
+  @GetMapping("/user/get-infor")
+  User getUserByEmail(@RequestParam("email") String email);
 }

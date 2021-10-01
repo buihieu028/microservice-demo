@@ -1,11 +1,12 @@
 package com.example.commonservice.model;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -17,7 +18,7 @@ public class User extends BaseEntity {
   @Column(name = "email")
   private String email;
 
-  @JsonIgnore()
+  @JsonIgnore
   @Column(name = "password")
   private String password;
 
@@ -41,6 +42,8 @@ public class User extends BaseEntity {
 
   @Column(name = "status")
   private int status;
+
+  private String role;
 
   public Long getId() {
     return id;
@@ -120,5 +123,13 @@ public class User extends BaseEntity {
 
   public void setStatus(int status) {
     this.status = status;
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
   }
 }

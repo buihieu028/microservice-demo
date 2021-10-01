@@ -3,10 +3,12 @@ package com.example.authservice.service.impl;
 import com.example.authservice.jwt.JwtTokenProvider;
 import com.example.authservice.model.LoginRequest;
 import com.example.authservice.model.UserRequest;
+import com.example.authservice.repo.RoleRepository;
 import com.example.authservice.repo.UserRepository;
 import com.example.authservice.service.AuthenticateService;
 import com.example.authservice.utils.DateUtils;
 import com.example.commonservice.exception.*;
+import com.example.commonservice.model.Role;
 import com.example.commonservice.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -26,6 +30,9 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private RoleRepository roleRepository;
 
   @Autowired
   private JwtTokenProvider jwtTokenProvider;
@@ -70,6 +77,8 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     user.setGender(userRequest.getGender());
     user.setAddress(userRequest.getAddress());
     user.setPhoneNumber(userRequest.getPhoneNumber());
+    Role role = roleRepository.findByName("USER");
+    user.setRole(role.getName());
     user.setStatus(1);
     long time = System.currentTimeMillis();
     user.setCreatedAt(time);

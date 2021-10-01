@@ -21,7 +21,6 @@ zuul:
   host:
     connect-timeout-millis: 5000000
     socket-timeout-millis: 5000000
-  ignored-services: '*'
   routes:
     resource-service:
       path: /resource/**
@@ -35,6 +34,8 @@ zuul:
       path: /auth/**
       serviceId: auth-service
       stripPrefix: true
+  ignored-services: '*'
+
 ribbon:
   ReadTimeout: 60000
 
@@ -45,13 +46,13 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
-resource-service:
-  ribbon:
-    listOfServers: localhost:8182
-user-service:
-  ribbon:
-    listOfServers: localhost:8183
-
-auth-service:
-  ribbon:
-    listOfServers: localhost:8080
+#resource-service:
+#  ribbon:
+#    listOfServers: localhost:8182
+#user-service:
+#  ribbon:
+#    listOfServers: localhost:8183
+#
+#auth-service:
+#  ribbon:
+#    listOfServers: localhost:8080

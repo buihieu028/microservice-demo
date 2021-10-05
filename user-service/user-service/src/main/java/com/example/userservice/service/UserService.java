@@ -8,4 +8,6 @@ public interface UserService {
   List<UserDetailDTO> userDetailDTOList();
 
   UserDetailDTO saveNewUser(UserDetailDTO userDetailDTO);
+
+  UserDetailDTO findById(Long id);
 }

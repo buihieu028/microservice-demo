@@ -3,8 +3,10 @@ package com.example.userservice.service.impl;
 import com.example.userservice.dto.UserDetailDTO;
 import com.example.userservice.model.UserDetails;
 import com.example.userservice.repo.UserDetailRepository;
+import com.example.userservice.repo.UserRedisRepository;
 import com.example.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   UserDetailRepository userDetailRepository;
+
+  @Autowired
+  UserRedisRepository userRedisRepository;
 
   @Override
   public List<UserDetailDTO> userDetailDTOList() {
@@ -45,6 +50,18 @@ public class UserServiceImpl implements UserService {
     userDetailDTO.setId(String.valueOf(saveUserDetails.getId()));
     userDetailDTO.setName(String.valueOf(saveUserDetails.getName()));
     userDetailDTO.setAge(String.valueOf(saveUserDetails.getAge()));
+    return userDetailDTO;
+  }
+
+  @Override
+  public UserDetailDTO findById(Long id) {
+    UserDetails userDetails = userDetailRepository.findById(id).get();
+    UserDetailDTO userDetailDTO = new UserDetailDTO();
+    userDetailDTO.setId(String.valueOf(userDetails.getId()));
+    userDetailDTO.setAge(String.valueOf(userDetails.getAge()));
+    userDetailDTO.setName(userDetails.getName());
+
+    //userRedisRepository.save(userDetails);
     return userDetailDTO;
   }
 
